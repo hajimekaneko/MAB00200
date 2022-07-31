@@ -126,20 +126,31 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mab00100',
-        'USER': 'mab00100',
-        'PASSWORD': 'mab00100',
-        'HOST': 'localhost',
-        'POST': '5432',
+
+if "COMPUTER-NAME" in "LAPTOP-VS05EARJ":
+    # デバッグ環境
+    # DEBUG = True 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mab00100',
+            'USER': 'mab00100',
+            'PASSWORD': 'mab00100',
+            'HOST': 'localhost',
+            'POST': '5432',
+        }
     }
-}
+    ALLOWED_HOSTS = ['*'] 
+else:
+    # 本番環境
+    # DEBUG = False
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+    ALLOWED_HOSTS = ['*']
+
 
 JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': False,

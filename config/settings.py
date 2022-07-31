@@ -32,7 +32,7 @@ env.read_env(os.path.join(BASE_DIR,'.env'))
 SECRET_KEY = 'django-insecure-f-)7l4#nckqf4v)z2-n_0d2g)v^op5!lea*7*epxt*dc9l$gx*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', '')
 
 ALLOWED_HOSTS = ['*']
 
@@ -127,7 +127,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-if "COMPUTER-NAME" in "LAPTOP-VS05EARJ":
+if DEBUG == "True":
     # デバッグ環境
     # DEBUG = True 
     DATABASES = {
@@ -296,7 +296,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if DEBUG:
+if DEBUG == "True":
     INSTALLED_APPS += ['corsheaders']
     MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
     CORS_ORIGIN_WHITELIST = (

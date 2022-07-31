@@ -130,15 +130,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 if DEBUG == "True":
     # デバッグ環境
     # DEBUG = True 
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': 'mab00100',
+    #         'USER': 'mab00100',
+    #         'PASSWORD': 'mab00100',
+    #         'HOST': 'localhost',
+    #         'POST': '5432',
+    #     }
+    # }
+    import dj_database_url
+    db_from_env = dj_database_url.config()
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'mab00100',
-            'USER': 'mab00100',
-            'PASSWORD': 'mab00100',
-            'HOST': 'localhost',
-            'POST': '5432',
-        }
+        'default': dj_database_url.config()
     }
     ALLOWED_HOSTS = ['*'] 
 else:
